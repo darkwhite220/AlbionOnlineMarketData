@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Albion Online Market Data</string>
+
+    <!--Results-->
+    <string name="results">Results</string>
+    <string name="city">City</string>
+    <string name="update">Update</string>
+    <string name="sell">Sell</string>
+    <string name="buy">Buy</string>
+    <string name="brecilien">Brecilien</string>
+    <string name="blackmarket">BlackMarket</string>
+    <string name="bridgewatch">Bridgewatch</string>
+    <string name="caerleon">Caerleon</string>
+    <string name="fortsterling">FortSterling</string>
+    <string name="lymhurst">Lymhurst</string>
+    <string name="martlock">Martlock</string>
+    <string name="thetford">Thetford</string>
+    <string name="normal_quality">Normal Quality</string>
+    <string name="good_quality">Good Quality</string>
+    <string name="outstanding_quality">Outstanding Quality</string>
+    <string name="excellent_quality">Excellent Quality</string>
+    <string name="masterpiece_quality">Masterpiece Quality</string>
+    <!--Dialog-->
+    <string name="result_info">Result Info</string>
+    <string name="result_info_desc">The result tables shows minimal sell and maximum buy prices and the last time they were updated, you can swipe left/right to see all qualities.\nYou can update the data by checking\n\n</string>
+    <string name="albion_online_data_project">Albion Online Data Project</string>
+    <string name="albion_online_data_project_url">https://www.albion-online-data.com/</string>
+
+    <!--Home-->
+    <string name="search_placeholder">Search item…</string>
+    <string name="category_items_count">Category Items (%d/%d)</string>
+    <string name="click_to_delete"><![CDATA[<- Click To Delete]]></string>
+
+    <!--Settings-->
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="server">Server</string>
+    <string name="west">West</string>
+    <string name="east">East</string>
+    <string name="english">English</string>
+    <string name="deutsch">Deutsch</string>
+    <string name="francais">Français</string>
+    <string name="russian">Русский</string>
+    <string name="polish">Polski</string>
+    <string name="spanish">Español</string>
+    <string name="portuguese">Português</string>
+    <string name="chinese">简体中文</string>
+    <string name="korean">한국어</string>
+    <string name="flag_us">🇺🇸</string>
+    <string name="flag_german">🇩🇪</string>
+    <string name="flag_french">🇫🇷</string>
+    <string name="flag_russian">🇷🇺</string>
+    <string name="flag_polish">🇵🇱</string>
+    <string name="flag_spanish">🇪🇸</string>
+    <string name="flag_portuguese">🇵🇹</string>
+    <string name="flag_chinese">🇨🇳</string>
+    <string name="flag_korean">🇰🇷</string>
+    <string name="app_version">1.0.0</string>
+    <string name="about">About</string>
+    <string name="share_app">Share App</string>
+    <string name="share_app_desc">Share App: </string>
+    <string name="support_email">dw220appstore@gmail.com</string>
+    <string name="email_handler_title">Send mail…</string>
+    <string name="error_no_email_client_installed">There are no email clients installed</string>
+    <string name="rate_us">Rate the App</string>
+    <string name="contact_me">Contact me</string>
+    <string name="source_code">App Source Code</string>
+    <string name="source_code_url">https://github.com/darkwhite220/AlbionOnline_MarketData</string>
+
+</resources>
