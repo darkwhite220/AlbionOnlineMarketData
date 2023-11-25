@@ -1,7 +1,7 @@
 package earth.darkwhite.albiononlinemarketdata.util
 
 object Constant {
-  const val DB_ASSET_FILE_NAME = "game_items_table.db"
+  const val DB_ASSET_FILE_NAME = "game_items_table_v4.db"
   const val INITIAL_PAGE_INDEX = 0
   const val SEARCH_PAGE_SIZE = 30
   
