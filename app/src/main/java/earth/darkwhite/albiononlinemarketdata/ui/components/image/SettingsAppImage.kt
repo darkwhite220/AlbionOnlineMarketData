@@ -1,7 +1,7 @@
 package earth.darkwhite.albiononlinemarketdata.ui.components.image
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -13,17 +13,17 @@ import earth.darkwhite.albiononlinemarketdata.ui.components.mediumPadding
 
 @Composable
 fun SettingsAppImage() {
-  Image(
-    modifier = Modifier
-      .size(90.dp)
-      .mediumPadding(),
-    painter = painterResource(R.drawable.app_icon),
-    contentDescription = null
-  )
+    Icon(
+        modifier = Modifier
+          .size(90.dp)
+          .mediumPadding(),
+        painter = painterResource(R.drawable.app_icon),
+        contentDescription = null
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSettingsAppImage() {
-  SettingsAppImage()
+    SettingsAppImage()
 }
