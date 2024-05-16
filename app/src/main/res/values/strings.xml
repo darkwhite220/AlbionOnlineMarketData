@@ -35,8 +35,9 @@
     <string name="settings">Settings</string>
     <string name="language">Language</string>
     <string name="server">Server</string>
-    <string name="west">West</string>
-    <string name="east">East</string>
+    <string name="west">America</string>
+    <string name="east">Asia</string>
+    <string name="europe">Europe</string>
     <string name="english">English</string>
     <string name="deutsch">Deutsch</string>
     <string name="francais">Français</string>
@@ -66,5 +67,6 @@
     <string name="contact_me">Contact me</string>
     <string name="source_code">App Source Code</string>
     <string name="source_code_url">https://github.com/darkwhite220/AlbionOnlineMarketData</string>
+    <string name="cancel">CANCEL</string>
 
 </resources>

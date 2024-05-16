@@ -7,11 +7,11 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import earth.darkwhite.albiononlinemarketdata.domain.implementation.DataStoreRepoImpl.DefaultValues.ITEM_LANGUAGE_DEFAULT
-import earth.darkwhite.albiononlinemarketdata.domain.implementation.DataStoreRepoImpl.DefaultValues.SERVER_REGION_DEFAULT
+import earth.darkwhite.albiononlinemarketdata.domain.implementation.DataStoreRepoImpl.DefaultValues.NEW_SERVER_REGION_DEFAULT
+import earth.darkwhite.albiononlinemarketdata.domain.model.Server
 import earth.darkwhite.albiononlinemarketdata.domain.model.UserPreferences
 import earth.darkwhite.albiononlinemarketdata.domain.repository.DataStoreRepository
 import earth.darkwhite.albiononlinemarketdata.util.Constant.ENGLISH_LANGUAGE
-import earth.darkwhite.albiononlinemarketdata.util.Constant.WEST_SERVER
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -30,9 +30,17 @@ class DataStoreRepoImpl @Inject constructor(
       Log.e(TAG, "Preferences: ${it.message}")
     }
     .map { preferences ->
+      val server = preferences[PreferencesKeys.NEW_SERVER_REGION]?.let {
+        Server.valueOf(it)
+      } ?: preferences[PreferencesKeys.SERVER_REGION]?.let {
+        val temp = if (it) Server.AMERICA else Server.ASIA
+        setServerRegion(temp)
+        temp
+      } ?: NEW_SERVER_REGION_DEFAULT
+      
       UserPreferences(
         itemLanguage = preferences[PreferencesKeys.ITEM_LANGUAGE] ?: ITEM_LANGUAGE_DEFAULT,
-        westServer = preferences[PreferencesKeys.SERVER_REGION] ?: SERVER_REGION_DEFAULT
+        server = server
       )
     }
   
@@ -42,20 +50,21 @@ class DataStoreRepoImpl @Inject constructor(
     }
   }
   
-  override suspend fun setServerRegion(newValue: Boolean) {
+  override suspend fun setServerRegion(newValue: Server) {
     dataStore.edit { preferences ->
-      preferences[PreferencesKeys.SERVER_REGION] = newValue
+      preferences[PreferencesKeys.NEW_SERVER_REGION] = newValue.name
     }
   }
   
   private object PreferencesKeys {
     val ITEM_LANGUAGE = stringPreferencesKey("item_language")
     val SERVER_REGION = booleanPreferencesKey("server_region")
+    val NEW_SERVER_REGION = stringPreferencesKey("new_server_region")
   }
   
   private object DefaultValues {
     const val ITEM_LANGUAGE_DEFAULT = ENGLISH_LANGUAGE
-    const val SERVER_REGION_DEFAULT = WEST_SERVER
+    val NEW_SERVER_REGION_DEFAULT = Server.AMERICA
   }
   
   companion object {

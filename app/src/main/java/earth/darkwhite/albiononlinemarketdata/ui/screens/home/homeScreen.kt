@@ -25,7 +25,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import earth.darkwhite.albiononlinemarketdata.database.model.Category
 import earth.darkwhite.albiononlinemarketdata.database.model.GameItemSample
 import earth.darkwhite.albiononlinemarketdata.ui.components.HomeFab
-import earth.darkwhite.albiononlinemarketdata.ui.components.bottombar.HomeBottomBar
 import earth.darkwhite.albiononlinemarketdata.ui.components.topbar.HomeTopAppBar
 import earth.darkwhite.albiononlinemarketdata.ui.screens.home.components.CategoryContent
 import earth.darkwhite.albiononlinemarketdata.ui.theme.AlbionOnlineMarketDataTheme
@@ -96,7 +95,15 @@ fun HomeContent(
             searchState = false
           }
         },
-        onSettingsClick = onSettingsClick
+        onSettingsClick = onSettingsClick,
+        fabState = fabState,
+        fabTransitionData = fabTransitionData,
+        newCategoryItems = newCategoryItems,
+        onHomeEvent = onHomeEvent,
+        onStateChange = { state ->
+          searchState = state
+          fabState = state
+        }
       )
     },
     floatingActionButton = {
@@ -110,18 +117,6 @@ fun HomeContent(
       )
     },
     floatingActionButtonPosition = FabPosition.Center,
-    bottomBar = {
-      HomeBottomBar(
-        fabState = fabState,
-        fabTransitionData = fabTransitionData,
-        newCategoryItems = newCategoryItems,
-        onHomeEvent = onHomeEvent,
-        onStateChange = { state ->
-          searchState = state
-          fabState = state
-        }
-      )
-    }
   ) { paddingValues ->
     CategoryContent(
       paddingValues = paddingValues,
@@ -179,7 +174,17 @@ fun PreviewHomeContent() {
     Category(
       index = 1,
       name = "Category 2",
-      items = listOf("T4_BAG", "T5_BAG", "T6_BAG", "T4_BAG", "T5_BAG", "T6_BAG", "T4_BAG", "T5_BAG", "T6_BAG")
+      items = listOf(
+        "T4_BAG",
+        "T5_BAG",
+        "T6_BAG",
+        "T4_BAG",
+        "T5_BAG",
+        "T6_BAG",
+        "T4_BAG",
+        "T5_BAG",
+        "T6_BAG"
+      )
     ),
     Category(
       index = 2,
@@ -194,7 +199,17 @@ fun PreviewHomeContent() {
   )
   
   val pagingItems = flowOf(PagingData.from(searchResultData)).collectAsLazyPagingItems()
-  val itemsIDs = mutableListOf("T4_BAG", "T5_BAG", "T6_BAG", "T4_BAG", "T5_BAG", "T6_BAG", "T4_BAG", "T5_BAG", "T6_BAG")
+  val itemsIDs = mutableListOf(
+    "T4_BAG",
+    "T5_BAG",
+    "T6_BAG",
+    "T4_BAG",
+    "T5_BAG",
+    "T6_BAG",
+    "T4_BAG",
+    "T5_BAG",
+    "T6_BAG"
+  )
   AlbionOnlineMarketDataTheme {
     HomeContent(
       homeUiState = HomeUiState.Success(categoriesList),

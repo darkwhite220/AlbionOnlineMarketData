@@ -10,9 +10,11 @@ import dagger.hilt.components.SingletonComponent
 import earth.darkwhite.albiononlinemarketdata.database.MyDao
 import earth.darkwhite.albiononlinemarketdata.database.MyDatabase
 import earth.darkwhite.albiononlinemarketdata.domain.network.AlbionApiEast
+import earth.darkwhite.albiononlinemarketdata.domain.network.AlbionApiEurope
 import earth.darkwhite.albiononlinemarketdata.domain.network.AlbionApiWest
 import earth.darkwhite.albiononlinemarketdata.util.Constant.DB_ASSET_FILE_NAME
 import earth.darkwhite.albiononlinemarketdata.util.Constant.EAST_SERVER_BASE_URL
+import earth.darkwhite.albiononlinemarketdata.util.Constant.EUROPE_SERVER_BASE_URL
 import earth.darkwhite.albiononlinemarketdata.util.Constant.WEST_SERVER_BASE_URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -60,6 +62,16 @@ object AppModule {
       .client(client)
       .build()
       .create(AlbionApiEast::class.java)
+  
+  @Provides
+  @Singleton
+  fun provideRetrofitEuropeServer(): AlbionApiEurope =
+    Retrofit.Builder()
+      .baseUrl(EUROPE_SERVER_BASE_URL)
+      .addConverterFactory(gsonConverterFactory)
+      .client(client)
+      .build()
+      .create(AlbionApiEurope::class.java)
   
   private val gsonConverterFactory = GsonConverterFactory.create()
   private val interceptor = HttpLoggingInterceptor().apply {
