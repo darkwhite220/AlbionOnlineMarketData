@@ -20,12 +20,13 @@ import earth.darkwhite.albiononlinemarketdata.util.Constant
 
 @Composable
 fun SearchContent(
+  modifier : Modifier,
   listState: LazyListState,
   searchResult: LazyPagingItems<GameItemSample>,
   onItemClick: (item: GameItemSample) -> Unit
 ) {
   LazyColumn(
-    modifier = Modifier.fillMaxSize(),
+    modifier = modifier,
     state = listState,
     contentPadding = PaddingValues(vertical = largePadValue),
     verticalArrangement = Arrangement.spacedBy(mediumPadValue)

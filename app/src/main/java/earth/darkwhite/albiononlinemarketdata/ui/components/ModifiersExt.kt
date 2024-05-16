@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
 
 const val homeStaggeredGridCellsCount = 2
@@ -19,8 +18,8 @@ val smallItemIconSize = 50.dp
 val itemIconSize = 56.dp
 val itemIconSizeLarge = 72.dp
 
-fun Modifier.mediumPadding(): Modifier = composed { padding(mediumPadValue) }
-fun Modifier.largePadding(): Modifier = composed { padding(largePadValue) }
+fun Modifier.mediumPadding(): Modifier = this.padding(mediumPadValue)
+fun Modifier.largePadding(): Modifier = this.padding(largePadValue)
 
 @Composable
 fun HeightSpacer() {

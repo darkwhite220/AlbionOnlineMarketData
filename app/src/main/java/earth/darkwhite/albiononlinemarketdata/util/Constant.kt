@@ -15,8 +15,9 @@ object Constant {
   const val CONTENT_TYPE_CATEGORY_ITEM = "category_item"
   const val CONTENT_TYPE_GAME_ITEM = "game_item"
   
-  const val WEST_SERVER_BASE_URL = "https://albion-online-data.com/api/v2/"
+  const val WEST_SERVER_BASE_URL = "https://west.online-data.com/api/v2/"
   const val EAST_SERVER_BASE_URL = "https://east.albion-online-data.com/api/v2/"
+  const val EUROPE_SERVER_BASE_URL = "https://europe.albion-online-data.com/api/v2/"
   
   const val DEFAULT_TIME = "0001-01-01T00:00:00"
   const val DEFAULT_OFFSET = "0000"
@@ -41,7 +42,4 @@ object Constant {
   const val PORTUGUESE_LANGUAGE = "pt"
   const val CHINESE_LANGUAGE = "cn"
   const val KOREAN_LANGUAGE = "kr"
-  
-  // Server
-  const val WEST_SERVER = true
 }

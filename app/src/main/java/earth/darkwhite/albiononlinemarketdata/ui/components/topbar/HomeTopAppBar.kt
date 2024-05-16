@@ -25,18 +25,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import earth.darkwhite.albiononlinemarketdata.R
 import earth.darkwhite.albiononlinemarketdata.database.model.GameItemSample
+import earth.darkwhite.albiononlinemarketdata.ui.components.bottombar.HomeBottomBar
 import earth.darkwhite.albiononlinemarketdata.ui.components.mediumPadValue
+import earth.darkwhite.albiononlinemarketdata.ui.screens.home.FabTransitionData
+import earth.darkwhite.albiononlinemarketdata.ui.screens.home.HomeEvent
 import earth.darkwhite.albiononlinemarketdata.ui.screens.home.components.SearchContent
-import earth.darkwhite.albiononlinemarketdata.ui.theme.AlbionOnlineMarketDataTheme
 import earth.darkwhite.albiononlinemarketdata.util.Constant
-import kotlinx.coroutines.flow.flowOf
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +47,12 @@ fun HomeTopAppBar(
   onSearchStateChange: () -> Unit,
   onQueryChange: (newValue: String) -> Unit,
   onItemClick: (item: GameItemSample) -> Unit,
-  onSettingsClick: () -> Unit
+  onSettingsClick: () -> Unit,
+  fabState: Boolean,
+  fabTransitionData: FabTransitionData,
+  newCategoryItems: MutableList<String>,
+  onHomeEvent: (HomeEvent) -> Unit,
+  onStateChange: (state: Boolean) -> Unit
 ) {
   val focusRequester = remember { FocusRequester() }
   val listState = rememberLazyListState()
@@ -96,9 +99,17 @@ fun HomeTopAppBar(
       }
     ) {
       SearchContent(
+        modifier = Modifier.weight(1f),
         listState = listState,
         searchResult = searchResult,
         onItemClick = onItemClick
+      )
+      HomeBottomBar(
+        fabState = fabState,
+        fabTransitionData = fabTransitionData,
+        newCategoryItems = newCategoryItems,
+        onHomeEvent = onHomeEvent,
+        onStateChange = onStateChange
       )
     }
   }
@@ -121,50 +132,50 @@ fun HomeTopAppBar(
   }
 }
 
-@Preview
-@Composable
-fun PreviewHomeTopAppBar() {
-  val searchResultData = listOf(
-    GameItemSample(itemID = "T4_BAG", name = "Bag"),
-    GameItemSample(itemID = "T5_BAG", name = "Bag"),
-    GameItemSample(itemID = "T6_BAG", name = "Bag")
-  )
-  
-  val pagingItems = flowOf(PagingData.from(searchResultData)).collectAsLazyPagingItems()
-  AlbionOnlineMarketDataTheme {
-    HomeTopAppBar(
-      searchState = true,
-      query = "Bag",
-      searchResult = pagingItems,
-      onActiveSearchState = { },
-      onSearchStateChange = { },
-      onQueryChange = {},
-      onItemClick = {},
-      onSettingsClick = {}
-    )
-  }
-}
-
-@Preview
-@Composable
-fun PreviewHomeTopAppBarSearch() {
-  val searchResultData = listOf(
-    GameItemSample(itemID = "T4_BAG", name = "Bag"),
-    GameItemSample(itemID = "T5_BAG", name = "Bag"),
-    GameItemSample(itemID = "T6_BAG", name = "Bag")
-  )
-  
-  val pagingItems = flowOf(PagingData.from(searchResultData)).collectAsLazyPagingItems()
-  AlbionOnlineMarketDataTheme {
-    HomeTopAppBar(
-      searchState = false,
-      query = "Bag",
-      searchResult = pagingItems,
-      onActiveSearchState = { },
-      onSearchStateChange = { },
-      onQueryChange = {},
-      onItemClick = {},
-      onSettingsClick = {}
-    )
-  }
-}
+//@Preview
+//@Composable
+//fun PreviewHomeTopAppBar() {
+//  val searchResultData = listOf(
+//    GameItemSample(itemID = "T4_BAG", name = "Bag"),
+//    GameItemSample(itemID = "T5_BAG", name = "Bag"),
+//    GameItemSample(itemID = "T6_BAG", name = "Bag")
+//  )
+//
+//  val pagingItems = flowOf(PagingData.from(searchResultData)).collectAsLazyPagingItems()
+//  AlbionOnlineMarketDataTheme {
+//    HomeTopAppBar(
+//      searchState = true,
+//      query = "Bag",
+//      searchResult = pagingItems,
+//      onActiveSearchState = { },
+//      onSearchStateChange = { },
+//      onQueryChange = {},
+//      onItemClick = {},
+//      onSettingsClick = {}
+//    )
+//  }
+//}
+//
+//@Preview
+//@Composable
+//fun PreviewHomeTopAppBarSearch() {
+//  val searchResultData = listOf(
+//    GameItemSample(itemID = "T4_BAG", name = "Bag"),
+//    GameItemSample(itemID = "T5_BAG", name = "Bag"),
+//    GameItemSample(itemID = "T6_BAG", name = "Bag")
+//  )
+//
+//  val pagingItems = flowOf(PagingData.from(searchResultData)).collectAsLazyPagingItems()
+//  AlbionOnlineMarketDataTheme {
+//    HomeTopAppBar(
+//      searchState = false,
+//      query = "Bag",
+//      searchResult = pagingItems,
+//      onActiveSearchState = { },
+//      onSearchStateChange = { },
+//      onQueryChange = {},
+//      onItemClick = {},
+//      onSettingsClick = {}
+//    )
+//  }
+//}

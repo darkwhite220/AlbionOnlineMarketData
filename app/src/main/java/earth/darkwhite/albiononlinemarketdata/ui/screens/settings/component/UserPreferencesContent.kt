@@ -4,19 +4,26 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Switch
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +32,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import earth.darkwhite.albiononlinemarketdata.R
+import earth.darkwhite.albiononlinemarketdata.domain.model.Server
 import earth.darkwhite.albiononlinemarketdata.ui.components.ProgressBar
 import earth.darkwhite.albiononlinemarketdata.ui.components.cardElevation
 import earth.darkwhite.albiononlinemarketdata.ui.components.largePadValue
@@ -55,8 +64,8 @@ fun UserPreferencesContent(
         )
         Divider(modifier = Modifier.padding(horizontal = largePadValue))
         ServerRow(
-          server = preferences.data.westServer,
-          onServerChange = onSettingsEvent
+          currentServer = preferences.data.server,
+          onClick = onSettingsEvent
         )
       }
     }
@@ -99,7 +108,10 @@ private fun ItemLanguageRow(
             text = { Text(text = stringResource(id = item.name)) },
             leadingIcon = { Text(text = stringResource(id = item.flag)) },
             trailingIcon = {
-              if (item.symbol == itemLanguage) Icon(imageVector = Icons.Rounded.Check, contentDescription = null)
+              if (item.symbol == itemLanguage) Icon(
+                imageVector = Icons.Rounded.Check,
+                contentDescription = null
+              )
             }
           )
         }
@@ -110,45 +122,121 @@ private fun ItemLanguageRow(
 
 @Composable
 private fun ServerRow(
-  server: Boolean,
-  onServerChange: (SettingsEvent) -> Unit
+  currentServer: Server,
+  onClick: (event: SettingsEvent) -> Unit
 ) {
+  var serverDropDownState by remember { mutableStateOf(false) }
   Row(
-    modifier = Modifier.clickable { onServerChange(SettingsEvent.UpdateServerRegion(!server)) },
-    horizontalArrangement = Arrangement.spacedBy(largePadValue),
-    verticalAlignment = Alignment.CenterVertically
+    modifier = Modifier.clickable { serverDropDownState = true },
+    horizontalArrangement = Arrangement.spacedBy(largePadValue)
   ) {
     Text(
-      text = stringResource(R.string.server),
       modifier = Modifier
         .weight(1f)
-        .padding(PaddingValues(start = largePadValue, top = largePadValue, bottom = largePadValue))
+        .padding(PaddingValues(start = largePadValue, top = largePadValue, bottom = largePadValue)),
+      text = stringResource(R.string.server)
     )
-    Text(
-      text = stringResource(if (server) R.string.west else R.string.east),
-      modifier = Modifier.padding(
-        PaddingValues(top = largePadValue, bottom = largePadValue)
+    val serverText = when (currentServer) {
+      Server.AMERICA -> R.string.west
+      Server.ASIA -> R.string.east
+      Server.EUROPE -> R.string.europe
+    }
+    Box {
+      Text(
+        modifier = Modifier
+          .padding(PaddingValues(end = largePadValue, top = largePadValue, bottom = largePadValue)),
+        text = stringResource(id = serverText)
       )
-    )
-    Switch(
-      checked = !server,
-      onCheckedChange = { onServerChange(SettingsEvent.UpdateServerRegion(!server)) },
-      Modifier.padding(end = largePadValue)
-    )
+      DropdownMenu(
+        expanded = serverDropDownState,
+        onDismissRequest = { serverDropDownState = false }
+      ) {
+        serversList.forEach { item ->
+          DropdownMenuItem(
+            onClick = {
+              onClick(SettingsEvent.UpdateServerRegion(item.server))
+              serverDropDownState = false
+            },
+            text = { Text(text = stringResource(id = item.textId)) },
+            trailingIcon = {
+              if (item.server == currentServer) Icon(
+                imageVector = Icons.Rounded.Check,
+                contentDescription = null
+              )
+            }
+          )
+        }
+      }
+    }
   }
 }
 
+data class ServerItem(
+  val server: Server,
+  @StringRes val textId: Int,
+)
+
+private val serversList = listOf(
+  ServerItem(
+    Server.AMERICA,
+    R.string.west
+  ),
+  ServerItem(
+    Server.EUROPE,
+    R.string.europe
+  ),
+  ServerItem(
+    Server.ASIA,
+    R.string.east
+  ),
+)
 
 data class GameLanguage(val symbol: String, @StringRes val name: Int, @StringRes val flag: Int)
 
 private val gameLanguageList = listOf(
-  GameLanguage(symbol = Constant.ENGLISH_LANGUAGE, name = R.string.english, flag = R.string.flag_us),
-  GameLanguage(symbol = Constant.GERMAN_LANGUAGE, name = R.string.deutsch, flag = R.string.flag_german),
-  GameLanguage(symbol = Constant.FRENCH_LANGUAGE, name = R.string.francais, flag = R.string.flag_french),
-  GameLanguage(symbol = Constant.RUSSIAN_LANGUAGE, name = R.string.russian, flag = R.string.flag_russian),
-  GameLanguage(symbol = Constant.POLISH_LANGUAGE, name = R.string.polish, flag = R.string.flag_polish),
-  GameLanguage(symbol = Constant.SPANISH_LANGUAGE, name = R.string.spanish, flag = R.string.flag_spanish),
-  GameLanguage(symbol = Constant.PORTUGUESE_LANGUAGE, name = R.string.portuguese, flag = R.string.flag_portuguese),
-  GameLanguage(symbol = Constant.CHINESE_LANGUAGE, name = R.string.chinese, flag = R.string.flag_chinese),
-  GameLanguage(symbol = Constant.KOREAN_LANGUAGE, name = R.string.korean, flag = R.string.flag_korean)
+  GameLanguage(
+    symbol = Constant.ENGLISH_LANGUAGE,
+    name = R.string.english,
+    flag = R.string.flag_us
+  ),
+  GameLanguage(
+    symbol = Constant.GERMAN_LANGUAGE,
+    name = R.string.deutsch,
+    flag = R.string.flag_german
+  ),
+  GameLanguage(
+    symbol = Constant.FRENCH_LANGUAGE,
+    name = R.string.francais,
+    flag = R.string.flag_french
+  ),
+  GameLanguage(
+    symbol = Constant.RUSSIAN_LANGUAGE,
+    name = R.string.russian,
+    flag = R.string.flag_russian
+  ),
+  GameLanguage(
+    symbol = Constant.POLISH_LANGUAGE,
+    name = R.string.polish,
+    flag = R.string.flag_polish
+  ),
+  GameLanguage(
+    symbol = Constant.SPANISH_LANGUAGE,
+    name = R.string.spanish,
+    flag = R.string.flag_spanish
+  ),
+  GameLanguage(
+    symbol = Constant.PORTUGUESE_LANGUAGE,
+    name = R.string.portuguese,
+    flag = R.string.flag_portuguese
+  ),
+  GameLanguage(
+    symbol = Constant.CHINESE_LANGUAGE,
+    name = R.string.chinese,
+    flag = R.string.flag_chinese
+  ),
+  GameLanguage(
+    symbol = Constant.KOREAN_LANGUAGE,
+    name = R.string.korean,
+    flag = R.string.flag_korean
+  )
 )
