@@ -56,7 +56,7 @@
     <string name="flag_portuguese">🇵🇹</string>
     <string name="flag_chinese">🇨🇳</string>
     <string name="flag_korean">🇰🇷</string>
-    <string name="app_version">1.1.0</string>
+    <string name="app_version">1.2.1</string>
     <string name="about">About</string>
     <string name="share_app">Share App</string>
     <string name="share_app_desc">Share App: </string>
@@ -67,6 +67,5 @@
     <string name="contact_me">Contact me</string>
     <string name="source_code">App Source Code</string>
     <string name="source_code_url">https://github.com/darkwhite220/AlbionOnlineMarketData</string>
-    <string name="cancel">CANCEL</string>
 
 </resources>

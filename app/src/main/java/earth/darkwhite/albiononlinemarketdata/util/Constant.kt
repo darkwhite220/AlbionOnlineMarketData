@@ -15,7 +15,7 @@ object Constant {
   const val CONTENT_TYPE_CATEGORY_ITEM = "category_item"
   const val CONTENT_TYPE_GAME_ITEM = "game_item"
   
-  const val WEST_SERVER_BASE_URL = "https://west.online-data.com/api/v2/"
+  const val WEST_SERVER_BASE_URL = "https://west.albion-online-data.com/api/v2/"
   const val EAST_SERVER_BASE_URL = "https://east.albion-online-data.com/api/v2/"
   const val EUROPE_SERVER_BASE_URL = "https://europe.albion-online-data.com/api/v2/"
   
